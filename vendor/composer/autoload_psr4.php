@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '' => array($vendorDir . '/werisu/php-classes/src'),
+    'Hcode\\' => array($vendorDir . '/werisu/php-classes/src'),
 );

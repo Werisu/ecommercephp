@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "": "vendor\\werisu\\php-classes\\src"
+            "Hcode\\": "vendor\\werisu\\php-classes\\src"
         }
     }
 }
