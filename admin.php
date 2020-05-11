@@ -5,7 +5,7 @@ use \Hcode\Model\User;
 
 $app->get('/admin', function() {
 
-	$users = User::isLogin(User::verifyLogin());
+	$users = User::isLogin();
     
 	$page = new PageAdmin([
 		"data"=>array(

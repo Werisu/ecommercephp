@@ -9,7 +9,14 @@ $app->get("/admin/users", function(){
 
 	$users = User::listAll();
 
-	$page = new PageAdmin();
+	$userLog = User::isLogin();
+
+	$page = new PageAdmin([
+			"data"=>array(
+				"users"=>$userLog
+			)
+		]);
+
 	$page->setTpl("users", array(
 		"users"=>$users
 	));
@@ -19,7 +26,13 @@ $app->get("/admin/users/create", function(){
 	
 	User::verifyLogin();
 
-	$page = new PageAdmin();
+	$userLog = User::isLogin();
+
+	$page = new PageAdmin([
+		"data"=>array(
+			"users"=>$userLog
+		)
+	]);
 	$page->setTpl("users-create");
 });
 
@@ -45,7 +58,14 @@ $app->get("/admin/users/:iduser", function($iduser){
 	$user = new User();
 	$user->get((int)$iduser);
 
-	$page = new PageAdmin();
+	$userLog = User::isLogin();
+
+	$page = new PageAdmin([
+			"data"=>array(
+				"users"=>$userLog
+			)
+		]);
+
 	$page->setTpl("users-update", array(
 		"user"=>$user->getValues()
 	));

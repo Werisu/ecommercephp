@@ -9,7 +9,13 @@ $app->get("/admin/products", function(){
 
     $products = Product::listAll();
 
-    $page = new PageAdmin();
+    $userLog = User::isLogin();
+
+    $page = new PageAdmin([
+            "data"=>array(
+                "users"=>$userLog
+            )
+        ]);
 
     $page->setTpl("products", [
         "products"=>$products
@@ -19,7 +25,13 @@ $app->get("/admin/products", function(){
 $app->get("/admin/products/create", function(){
     User::verifyLogin();
 
-    $page = new PageAdmin();
+    $userLog = User::isLogin();
+
+    $page = new PageAdmin([
+            "data"=>array(
+                "users"=>$userLog
+            )
+        ]);
 
     $page->setTpl("products-create");
 });
@@ -45,7 +57,13 @@ $app->get("/admin/products/:idproduct", function($idproduct){
 
 	$product->get((int)$idproduct);
 
-	$page = new PageAdmin();
+    $userLog = User::isLogin();
+
+    $page = new PageAdmin([
+            "data"=>array(
+                "users"=>$userLog
+            )
+        ]);
 
 	$page->setTpl("products-update", [
 		'product'=>$product->getValues()

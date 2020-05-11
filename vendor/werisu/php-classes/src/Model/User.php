@@ -60,8 +60,9 @@ class User extends Model {
         return $whoIdLogin;
     }
 
-    public static function isLogin($whoIdLogin)
+    public static function isLogin()
     {
+        $whoIdLogin = User::verifyLogin();
         $sql = new Sql();
 
         return $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) WHERE a.iduser = :whoIdLogin ORDER BY b.idperson", array(
