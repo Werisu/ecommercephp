@@ -3,7 +3,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
+        {loop="$users"}
+        {$value.desperson}
+        {/loop}
         <small>Optional description</small>
       </h1>
       <ol class="breadcrumb">

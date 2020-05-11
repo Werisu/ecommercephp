@@ -22,11 +22,13 @@ $app->get('/', function() {
 
 $app->get('/admin', function() {
 
-	User::verifyLogin();
+	$users = User::isLogin(User::verifyLogin());
     
 	$page = new PageAdmin();
 
-	$page->setTpl("index");
+	$page->setTpl("index", array(
+		"users"=>$users
+	));
 
 });
 
@@ -104,6 +106,7 @@ $app->post("/admin/users/create", function(){
 
 	$user = new User();
 	$_POST["inadmin"] = (isset($_POST["inadmin"]))?1:0;
+	$_POST['despassword'] = User::getPasswordHash($_POST['despassword']);
 	$user->setData($_POST);
 	$user->save();
 
@@ -268,6 +271,26 @@ $app->get("/admin/categories/:idcategory", function($idcategory){
 
 });
 
+/*
+
+$app->get('/admin', function() {
+
+	$iduserLog = User::isLogin(User::verifyLogin()); // id do usuário logado
+
+	$userLog = new User(); // instanciando novo usuário
+
+	$userLog->get((int)$iduserLog); // pegando dados do usuário
+    
+	$page = new PageAdmin();
+
+	$page->setTpl("index", [
+		"users"=>$userLog->getValues()
+	]);
+
+});
+
+*/
+
 $app->post("/admin/categories/:idcategory", function($idcategory){
 
 	User::verifyLogin();
@@ -283,6 +306,19 @@ $app->post("/admin/categories/:idcategory", function($idcategory){
 	header('Location: /admin/categories');
 	exit;
 
+});
+
+$app->get("/categories/:idcategory", function($idcategory){
+	
+	$category = new Category();
+
+	$category->get((int)$idcategory);
+
+	$page = new Page();
+
+	$page->setTpl("category", [
+		'category'=>$category->getValues()
+	]);
 });
 
 $app->run();

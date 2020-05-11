@@ -11,6 +11,7 @@ class User extends Model {
     const SESSION = "User";
     const SECRET = "RadInfo_Job_Secr";
     const SECRET_IV = "RadInfoJb_Secret_IV";
+    public $whoIdLogin = 0;
 
     public static function login($login, $password)
     {
@@ -55,6 +56,17 @@ class User extends Model {
             header("Location: /admin/login");
             exit;
         }
+        $whoIdLogin = (int)$_SESSION[User::SESSION]["iduser"];
+        return $whoIdLogin;
+    }
+
+    public static function isLogin($whoIdLogin)
+    {
+        $sql = new Sql();
+
+        return $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) WHERE a.iduser = :whoIdLogin ORDER BY b.idperson", array(
+            ":whoIdLogin"=>$whoIdLogin
+        ));
     }
 
     public static function logout()
