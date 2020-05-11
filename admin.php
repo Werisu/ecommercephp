@@ -7,7 +7,11 @@ $app->get('/admin', function() {
 
 	$users = User::isLogin(User::verifyLogin());
     
-	$page = new PageAdmin();
+	$page = new PageAdmin([
+		"data"=>array(
+			"users"=>$users
+		)
+	]);
 
 	$page->setTpl("index", array(
 		"users"=>$users
@@ -36,7 +40,7 @@ $app->get('/admin', function() {
 */
 
 $app->get('/admin/login', function(){
-	$page = new PageAdmin([
+	$page = new PageAdmin([ 
 		"header"=>false,
 		"footer"=>false
 	]);
