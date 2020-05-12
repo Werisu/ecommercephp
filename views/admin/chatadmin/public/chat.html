@@ -1,0 +1,12 @@
+<body onload="ajax();">
+	<form method="post" action="/admin/chat" id="chatbody">
+		<input type="text" name="name" placeholder="Insere o seu nome: ">
+		<div class="messages" id="chat">
+			{loop="$chat"}
+			<div class="message"><strong>{$value.name}</strong>: {$value.message}</div>
+			{/loop}
+		</div>
+		<input type="text" name="message" placeholder="mensagem">
+		<input type="submit" value="Enviar">
+		
+	</form>

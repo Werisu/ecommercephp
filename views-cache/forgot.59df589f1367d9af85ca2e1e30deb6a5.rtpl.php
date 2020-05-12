@@ -26,7 +26,7 @@
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
-    <a href="/res/admin/index2.html"><b>Rad</b>Info</a>
+    <a href="/res/admin/index2.html"><img src="/res/site/img/logo.svg" width="150px"></a>
   </div>
 
   <!-- START LOCK SCREEN ITEM -->

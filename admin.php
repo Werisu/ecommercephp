@@ -1,7 +1,9 @@
 <?php
 
 use \Hcode\PageAdmin;
+use \Hcode\PageChat;
 use \Hcode\Model\User;
+use \Hcode\Model\ChatAdmin;
 
 $app->get('/admin', function() {
 
@@ -127,6 +129,41 @@ $app->post("/admin/forgot/reset", function(){
 	]);
 
 	$page->setTpl("forgot-reset-success");
+
+});
+
+$app->get('/admin/chat', function() {
+
+	$users = User::isLogin();
+	
+	$chatadmin = ChatAdmin::listAll();
+	
+	$page = new PageChat([
+		"data"=>array(
+			"users"=>$users
+		),
+	]);
+
+	$page->setTpl("index", [
+		'chat'=>$chatadmin
+	]);
+
+});
+
+$app->post('/admin/chat', function() {
+
+	User::verifyLogin();
+    
+	$chatadmin = new ChatAdmin();
+
+	$users = User::isLogin();
+
+	$chatadmin->setData($_POST);
+
+	$chatadmin->save($users);
+
+	header('Location: /admin/chat');
+	exit;
 
 });
 
